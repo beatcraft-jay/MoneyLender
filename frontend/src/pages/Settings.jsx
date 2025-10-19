@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Accordion, Button, Card, Form, Toast, ToastContainer } from "react-bootstrap";
 import DashboardLayout from "../components/layout/DashboardLayout.jsx";
-
-// Assuming lucide-react icons as per previous usage
+import { useTheme } from "../components/context/ThemeContext.jsx"; 
 import { Settings as SettingsIcon, User, Mail, Phone, MapPin, Lock, Globe, CreditCard, Accessibility, HelpCircle, Share2, RotateCcw, Info, Moon, Sun } from "lucide-react";
 
 // Mock useAuth hook (as in original)
@@ -18,13 +17,6 @@ function useAuth() {
       return true; // Mock success
     },
   };
-}
-
-// Assuming useTheme is from a context; if not, import it accordingly
-// For demo, mock it here
-function useTheme() {
-  const [theme, setTheme] = useState('light');
-  return { theme, setTheme };
 }
 
 function Settings() {
@@ -68,13 +60,6 @@ function Settings() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showToast, setShowToast] = useState({ show: false, message: "", type: "success" });
   const fileInputRef = useRef(null);
-
-  // Sync preferences.theme with ThemeContext
-  useEffect(() => {
-    if (preferences.theme !== theme) {
-      setTheme(preferences.theme);
-    }
-  }, [preferences.theme, theme, setTheme]);
 
   const validateProfile = () => {
     const newErrors = {};

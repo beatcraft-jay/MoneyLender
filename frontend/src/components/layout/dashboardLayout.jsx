@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button, Dropdown } from "react-bootstrap";
+import { useTheme } from "../context/ThemeContext.jsx"; // Import ThemeContext
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -45,10 +46,12 @@ export default function DashboardLayout({ children }) {
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 768);
   const [notifications, setNotifications] = useState(mockNotifications);
   const [showNotifications, setShowNotifications] = useState(false);
+  
+  // Use ThemeContext instead of local state
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     const handleResize = () => {
@@ -59,10 +62,8 @@ export default function DashboardLayout({ children }) {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    document.body.classList.toggle("bg-dark", darkMode);
-    document.body.classList.toggle("text-light", darkMode);
-  }, [darkMode]);
+  // Remove the local darkMode useEffect since ThemeContext handles this
+  // ThemeContext already applies the theme to documentElement
 
   const handleLogout = () => (window.location.href = "/signin");
   const handleLogoClick = () => navigate("/dashboard");
@@ -113,7 +114,7 @@ export default function DashboardLayout({ children }) {
   return (
     <div
       className={`d-flex flex-column min-vh-100 ${
-        darkMode ? "bg-dark text-light" : "bg-light text-dark"
+        theme === "dark" ? "bg-dark text-light" : "bg-light text-dark"
       }`}
     >
       <div className="d-flex flex-grow-1">
@@ -198,7 +199,7 @@ export default function DashboardLayout({ children }) {
           {/* Top Navbar */}
           <nav
             className={`navbar navbar-expand-lg shadow-sm px-3 px-md-4 py-2 ${
-              darkMode ? "bg-secondary text-light" : "bg-white text-dark"
+              theme === "dark" ? "bg-secondary text-light" : "bg-white text-dark"
             }`}
             style={{ position: "sticky", top: 0, zIndex: 1040 }}
           >
@@ -221,7 +222,7 @@ export default function DashboardLayout({ children }) {
                 <div className="d-flex justify-content-between align-items-center mb-2">
                   {/* Menu Button - Visible in both light and dark modes */}
                   <Button
-                    variant={darkMode ? "outline-light" : "outline-dark"}
+                    variant={theme === "dark" ? "outline-light" : "outline-dark"}
                     size="sm"
                     className="p-2"
                     style={{ width: "40px", height: "40px" }}
@@ -248,7 +249,7 @@ export default function DashboardLayout({ children }) {
                   {/* Notifications Bell in Circle */}
                   <Dropdown show={showNotifications} onToggle={setShowNotifications}>
                     <Dropdown.Toggle
-                      variant={darkMode ? "outline-light" : "outline-secondary"}
+                      variant={theme === "dark" ? "outline-light" : "outline-secondary"}
                       size="sm"
                       className="rounded-circle position-relative p-2"
                       style={{ width: "40px", height: "40px" }}
@@ -313,19 +314,19 @@ export default function DashboardLayout({ children }) {
 
                   {/* Theme Toggle */}
                   <Button
-                    variant={darkMode ? "outline-light" : "outline-dark"}
+                    variant={theme === "dark" ? "outline-light" : "outline-dark"}
                     size="sm"
                     className="rounded-circle p-2"
                     style={{ width: "40px", height: "40px" }}
-                    onClick={() => setDarkMode(!darkMode)}
+                    onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                   >
-                    {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+                    {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
                   </Button>
 
                   {/* Admin Image - Same size as other buttons */}
                   <div
                     className={`rounded-circle d-flex align-items-center justify-content-center ${
-                      darkMode ? "bg-primary" : "bg-primary"
+                      theme === "dark" ? "bg-primary" : "bg-primary"
                     }`}
                     style={{ 
                       width: "40px", 
@@ -343,7 +344,7 @@ export default function DashboardLayout({ children }) {
                 {/* Notifications Bell in Circle */}
                 <Dropdown show={showNotifications} onToggle={setShowNotifications}>
                   <Dropdown.Toggle
-                    variant={darkMode ? "outline-light" : "outline-secondary"}
+                    variant={theme === "dark" ? "outline-light" : "outline-secondary"}
                     size="sm"
                     className="rounded-circle position-relative p-2"
                     style={{ width: "40px", height: "40px" }}
@@ -407,13 +408,13 @@ export default function DashboardLayout({ children }) {
                 </Dropdown>
 
                 <Button
-                  variant={darkMode ? "outline-light" : "outline-dark"}
+                  variant={theme === "dark" ? "outline-light" : "outline-dark"}
                   size="sm"
                   className="rounded-circle p-2"
                   style={{ width: "40px", height: "40px" }}
-                  onClick={() => setDarkMode(!darkMode)}
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                 >
-                  {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+                  {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
                 </Button>
 
                 {/* Admin Image - Same size as other buttons in desktop */}
