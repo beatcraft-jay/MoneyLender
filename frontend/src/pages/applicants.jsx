@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Modal, Button, Form, Table, Tabs, Tab, Image, Container, Row, Col } from "react-bootstrap";
 import { Pencil, Trash2, PlusCircle, Upload, User } from "lucide-react";
-import DashboardLayout from "../components/layout/DashboardLayout.jsx";
+import DashboardLayout from "../components/layout/dashboardLayout.jsx";
 import backgroundImage from "../assets/img/background.jpg";
 
 const initialApplicants = [

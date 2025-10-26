@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Plus, CreditCard, Calendar, User, CheckCircle } from "lucide-react";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
-import DashboardLayout from "../components/layout/DashboardLayout.jsx";
+import DashboardLayout from "../components/layout/dashboardLayout.jsx";
 import backgroundImage from "../assets/img/background.jpg";
 
 // Dummy payments data

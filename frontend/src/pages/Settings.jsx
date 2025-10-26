@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Accordion, Button, Card, Form, Toast, ToastContainer, Container, Row, Col } from "react-bootstrap";
-import DashboardLayout from "../components/layout/DashboardLayout.jsx";
+import DashboardLayout from "../components/layout/dashboardLayout.jsx";
 import { useTheme } from "../components/context/ThemeContext.jsx"; 
 import { Settings as SettingsIcon, User, Mail, Phone, MapPin, Lock, Globe, CreditCard, Accessibility, HelpCircle, Share2, RotateCcw, Info, Moon, Sun } from "lucide-react";
 import backgroundImage from "../assets/img/background.jpg";

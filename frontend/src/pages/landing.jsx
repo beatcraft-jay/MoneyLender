@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import backgroundImage from "../assets/img/background.jpg";
-import logo from "../assets/img/logo.png"; // Import the logo
+import logo from "../assets/img/logo.png"; 
 
 export default function Landing() {
   return (

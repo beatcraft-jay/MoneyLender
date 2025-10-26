@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Plus, FileText, Download, Eye, User, Calendar } from "lucide-react";
-import DashboardLayout from "../components/layout/DashboardLayout.jsx";
+import DashboardLayout from "../components/layout/dashboardLayout.jsx";
 import backgroundImage from "../assets/img/background.jpg";
 import { Container, Row, Col, Button, Modal, Card } from "react-bootstrap"; 
 

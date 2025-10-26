@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Bell, CheckCircle, AlertTriangle, Info, X } from "lucide-react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import DashboardLayout from "../components/layout/DashboardLayout.jsx";
+import DashboardLayout from "../components/layout/dashboardLayout.jsx";
 import backgroundImage from "../assets/img/background.jpg";
 
 // Dummy notifications data

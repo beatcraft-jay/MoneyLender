@@ -3,7 +3,7 @@ import { formatDistanceToNow } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useTheme } from "../components/context/ThemeContext.jsx";
-import DashboardLayout from "../components/layout/DashboardLayout.jsx";
+import DashboardLayout from "../components/layout/dashboardLayout.jsx";
 import backgroundImage from "../assets/img/background.jpg";
 
 // ------------------ AUTH MOCK ------------------
