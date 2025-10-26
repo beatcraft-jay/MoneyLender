@@ -199,7 +199,7 @@ function Settings() {
   return (
     <DashboardLayout>
       <div 
-        className="w-100 p-3 p-md-4 dashboard-background"
+        className="w-100 py-2 p-md-4 dashboard-background"
         style={{
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
@@ -227,7 +227,7 @@ function Settings() {
           <div className="glass-card rounded-4 shadow-lg border-0">
             <Accordion defaultActiveKey="0">
               {/* Profile Information */}
-              <Accordion.Item eventKey="0" className="border-0">
+              <Accordion.Item className="border-0">
                 <Accordion.Header className="glass-header">
                   <User size={20} className="me-2" /> Profile Information
                 </Accordion.Header>

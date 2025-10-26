@@ -431,7 +431,7 @@ export default function DashboardLayout({ children }) {
           {/* Page Content */}
           <div
             className="flex-grow-1 overflow-auto"
-            style={{ height: "calc(100vh - 70px)", padding: "1rem" }}
+            style={{ height: "calc(100vh - 70px)"}}
           >
             {children}
           </div>

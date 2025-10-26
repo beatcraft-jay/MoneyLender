@@ -343,7 +343,7 @@ function LoansContent() {
 
   return (
     <div 
-      className="w-100 p-2 p-md-4 dashboard-background"
+      className="w-100 py-2 p-md-4 dashboard-background"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
