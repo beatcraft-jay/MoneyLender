@@ -1,6 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
-/* ---------- Global Reset ---------- */
+/* ==============================
+   COLOR VARIABLES - NEW PALETTE
+============================== */
+:root {
+  --cream: #FFECC0;
+  --peach: #FFC29B;
+  --coral: #F39F9F;
+  --berry: #B95E82;
+  --white: #FFFFFF;
+  --text-dark: #2C3E50;
+  --text-medium: #5D6D7E;
+  --text-light: #7F8C8D;
+  --border-light: #E8E8E8;
+  --success: #27AE60;
+  --warning: #F39C12;
+  --danger: #E74C3C;
+  --info: #3498DB;
+  
+  /* Font Variables */
+  --font-primary: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Quicksand', serif;
+  --font-mono: 'Roboto Mono', monospace;
+}
+
+/* ==============================
+   GLOBAL RESET & BASE STYLES
+============================== */
 * {
   margin: 0;
   padding: 0;
@@ -13,44 +39,92 @@ body,
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background-color: #f8f9fa;
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  color: #212529;
+  background-color: var(--cream);
+  font-family: var(--font-primary);
+  color: var(--text-dark);
+  line-height: 1.6;
 }
 
 /* Remove default Vite centering */
 body {
   display: block;
-  line-height: 1.5;
 }
 
-/* Links */
-a {
-  color: #0d6efd;
-  text-decoration: none;
-}
-a:hover {
-  color: #0b5ed7;
-  text-decoration: underline;
+/* ==============================
+   BACKGROUND IMAGES
+============================== */
+.dashboard-background {
+  background-image: url('./assets/img/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
-/* Buttons */
-button {
-  border-radius: 6px;
-  border: none;
-  padding: 0.6em 1.2em;
-  font-size: 1rem;
+.signin-background {
+  background-image: url('./assets/img/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Glass morphism effect for cards */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+.glass-header {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ==============================
+   TYPOGRAPHY
+============================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
   font-weight: 500;
-  background-color: #0d6efd;
-  color: white;
-  cursor: pointer;
-  transition: all 0.25s;
-}
-button:hover {
-  background-color: #0b5ed7;
+  line-height: 1.3;
+  margin-bottom: 0.5em;
+  color: var(--text-dark);
 }
 
-/* ---------- Layout Tweaks ---------- */
+h1 {
+  font-size: 2.5rem;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 2rem;
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
+
+h5 {
+  font-size: 1.1rem;
+}
+
+h6 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* ==============================
+   LAYOUT COMPONENTS
+============================== */
 .dashboard-layout {
   display: flex;
   height: 100%;
@@ -58,11 +132,11 @@ button:hover {
   overflow: hidden;
 }
 
-/* Sidebar styling */
+/* Sidebar Styling */
 .sidebar {
   width: 250px;
-  background-color: #ffffff;
-  border-right: 1px solid #dee2e6;
+  background-color: var(--berry);
+  border-right: none;
   flex-shrink: 0;
   overflow-y: auto;
   transition: width 0.3s ease;
@@ -75,20 +149,324 @@ button:hover {
 .main-content {
   flex-grow: 1;
   overflow-y: auto;
-  background-color: #f8f9fa;
 }
 
-/* ---------- Cards ---------- */
+/* ==============================
+   CARDS & CONTAINERS
+============================== */
 .card {
   border-radius: 12px;
+  border: 1px solid var(--border-light);
+  box-shadow: 0 2px 8px rgba(185, 94, 130, 0.08);
+  background: var(--white);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 16px rgba(185, 94, 130, 0.12);
 }
 
 .card-header {
   font-weight: 600;
-  background-color: #f1f3f5 !important;
+  background-color: var(--white) !important;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-dark);
+  font-family: var(--font-heading);
 }
 
-/* ---------- Responsive ---------- */
+/* ==============================
+   BUTTONS - SINGLE COLOR EACH
+============================== */
+.btn {
+  border-radius: 8px;
+  border: none;
+  padding: 0.6em 1.2em;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: var(--font-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.01em;
+}
+
+/* Primary Button - Berry */
+.btn-primary, .btn-berry {
+  background-color: var(--berry);
+  color: var(--white);
+  border: none;
+}
+
+.btn-primary:hover, .btn-berry:hover {
+  background-color: #A54A75;
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
+/* Secondary Button - Peach */
+.btn-secondary {
+  background-color: var(--peach);
+  color: var(--text-dark);
+  border: none;
+}
+
+.btn-secondary:hover {
+  background-color: #FFB085;
+  color: var(--text-dark);
+  transform: translateY(-1px);
+}
+
+/* Outline Button - Coral */
+.btn-outline-primary {
+  background-color: transparent;
+  color: var(--coral);
+  border: 2px solid var(--coral);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--coral);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
+/* Success Button - Using system color */
+.btn-success {
+  background-color: var(--success);
+  color: var(--white);
+}
+
+.btn-success:hover {
+  background-color: #219653;
+  color: var(--white);
+}
+
+/* Danger Button - Using system color */
+.btn-danger {
+  background-color: var(--danger);
+  color: var(--white);
+}
+
+.btn-danger:hover {
+  background-color: #CB4335;
+  color: var(--white);
+}
+
+/* ==============================
+   NAVIGATION & LINKS
+============================== */
+.navbar {
+  background-color: var(--white) !important;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  color: var(--text-dark) !important;
+}
+
+.nav-link:hover {
+  color: var(--berry) !important;
+}
+
+/* Sidebar Navigation */
+.sidebar .nav-link {
+  color: var(--white) !important;
+  opacity: 0.9;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  margin: 2px 0;
+}
+
+.sidebar .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  opacity: 1;
+}
+
+.sidebar .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.15);
+  opacity: 1;
+  font-weight: 600;
+}
+
+/* ==============================
+   FORMS
+============================== */
+.form-control {
+  border: 2px solid var(--border-light);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-primary);
+  transition: all 0.3s ease;
+  background: var(--white);
+}
+
+.form-control:focus {
+  border-color: var(--berry);
+  box-shadow: 0 0 0 0.2rem rgba(185, 94, 130, 0.15);
+  background: var(--white);
+}
+
+.form-label {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+}
+
+/* ==============================
+   TABLES
+============================== */
+.table {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table th {
+  background-color: var(--berry);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 0.875rem;
+  border: none;
+  padding: 1rem;
+}
+
+.table td {
+  border-color: var(--border-light);
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(255, 194, 155, 0.1);
+}
+
+/* ==============================
+   BADGES & ALERTS
+============================== */
+.badge {
+  font-family: var(--font-primary);
+  font-weight: 500;
+  font-size: 0.75rem;
+  border-radius: 6px;
+}
+
+.badge.bg-primary, .badge.bg-berry {
+  background-color: var(--berry) !important;
+}
+
+.badge.bg-secondary {
+  background-color: var(--peach) !important;
+  color: var(--text-dark);
+}
+
+.badge.bg-warning {
+  background-color: var(--coral) !important;
+  color: var(--white);
+}
+
+.badge.bg-success {
+  background-color: var(--success) !important;
+}
+
+.badge.bg-danger {
+  background-color: var(--danger) !important;
+}
+
+/* Alert variations */
+.alert-primary {
+  background-color: rgba(185, 94, 130, 0.1);
+  border-color: var(--berry);
+  color: var(--text-dark);
+}
+
+.alert-warning {
+  background-color: rgba(243, 159, 159, 0.1);
+  border-color: var(--coral);
+  color: var(--text-dark);
+}
+
+/* ==============================
+   UTILITY CLASSES
+============================== */
+.main-text {
+  font-family: var(--font-primary);
+  font-weight: 400;
+  color: var(--text-dark);
+}
+
+.head-text {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.small-text {
+  font-family: var(--font-primary);
+  font-weight: 300;
+  font-size: 0.875rem;
+  color: var(--text-medium);
+}
+
+/* Background color utilities */
+.bg-berry { background-color: var(--berry); }
+.bg-peach { background-color: var(--peach); }
+.bg-coral { background-color: var(--coral); }
+.bg-success { background-color: var(--success); }
+
+/* Text color utilities */
+.text-berry { color: var(--berry); }
+.text-peach { color: var(--peach); }
+.text-coral { color: var(--coral); }
+
+/* Font weight utilities */
+.font-light { font-weight: 300; }
+.font-regular { font-weight: 400; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+
+/* Font family utilities */
+.font-primary { font-family: var(--font-primary); }
+.font-heading { font-family: var(--font-heading); }
+
+/* Letter spacing utilities */
+.tracking-tight { letter-spacing: -0.025em; }
+.tracking-normal { letter-spacing: 0; }
+.tracking-wide { letter-spacing: 0.025em; }
+
+/* Line height utilities */
+.leading-tight { line-height: 1.25; }
+.leading-normal { line-height: 1.6; }
+.leading-relaxed { line-height: 1.75; }
+
+/* ==============================
+   DARK MODE SUPPORT
+============================== */
+[data-theme="dark"] {
+  --cream: #1a1a1a;
+  --berry: #D17AA1;
+  --text-dark: #FAF8F1;
+  --text-medium: #BDC3C7;
+  --border-light: #34495E;
+  --white: #2C3E50;
+}
+
+[data-theme="dark"] .glass-card {
+  background: rgba(44, 62, 80, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .glass-header {
+  background: rgba(44, 62, 80, 0.95) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ==============================
+   RESPONSIVE DESIGN
+============================== */
 @media (max-width: 992px) {
   .sidebar {
     position: fixed;
@@ -100,14 +478,26 @@ button:hover {
   .sidebar.show {
     left: 0;
   }
+  
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.25rem; }
+  .card-title { font-size: 1.1rem; }
 }
 
 @media (max-width: 576px) {
   .card-body {
     padding: 0.75rem;
   }
-  h3, h4 {
-    font-size: 1.25rem;
+  
+  .btn {
+    padding: 0.5em 1em;
+    font-size: 0.9rem;
+  }
+  
+  .dashboard-background,
+  .signin-background {
+    background-attachment: scroll;
   }
 }
 
@@ -132,192 +522,255 @@ main {
   }
 }
 
-
 /* ==============================
-   FONT VARIABLES
+   LANDING PAGE STYLES
 ============================== */
-:root {
-  --font-primary: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-heading: 'Quicksand', serif;
-  --font-mono: 'Roboto Mono', monospace;
+.landing-background {
+  min-height: 100vh;
+  position: relative;
 }
 
-/* ==============================
-   GLOBAL TYPOGRAPHY
-============================== */
-body {
-  font-family: var(--font-primary);
-  font-weight: 400;
-  line-height: 1.6;
-  color: var(--primary-text-color);
+.landing-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 236, 192, 0.9) 0%,
+    rgba(255, 194, 155, 0.8) 50%,
+    rgba(185, 94, 130, 0.7) 100%
+  );
+  z-index: 1;
 }
 
-/* Headings */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  font-weight: 500;
-  line-height: 1.3;
-  margin-bottom: 0.5em;
+.landing-background > .container {
+  position: relative;
+  z-index: 2;
 }
 
-h1 {
-  font-size: 2.5rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
+/* Glass card for landing page content */
+.landing-background .glass-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 
+    0 20px 40px rgba(185, 94, 130, 0.15),
+    0 8px 16px rgba(255, 255, 255, 0.1) inset;
 }
 
-h2 {
-  font-size: 2rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
+/* Landing page specific button styles */
+.btn-berry {
+  background-color: var(--berry);
+  color: var(--white);
+  border: none;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(185, 94, 130, 0.3);
+  position: relative;
+  overflow: hidden;
 }
 
-h3 {
-  font-size: 1.5rem;
-  font-weight: 500;
+.btn-berry:hover {
+  background-color: #A54A75;
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(185, 94, 130, 0.4);
 }
 
-h4 {
-  font-size: 1.25rem;
-  font-weight: 500;
+.btn-berry:active {
+  transform: translateY(0);
 }
 
-h5 {
+/* Landing page text styles */
+.landing-background .head-text {
+  background: linear-gradient(135deg, var(--berry) 0%, var(--coral) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.landing-background .main-text {
+  color: var(--text-medium);
   font-size: 1.1rem;
-  font-weight: 500;
+  line-height: 1.7;
 }
 
-h6 {
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-/* Cards and UI Elements */
-.card-title {
-  font-family: var(--font-heading);
-  font-weight: 500;
-  font-size: 1.25rem;
-}
-
-.card-header {
-  font-family: var(--font-heading);
-  font-weight: 500;
-}
-
-/* Navigation */
-.navbar-brand,
-.navbar-nav .nav-link {
-  font-family: var(--font-primary);
-  font-weight: 500;
-}
-
-/* Buttons */
-.btn {
-  font-family: var(--font-primary);
-  font-weight: 500;
-  letter-spacing: 0.01em;
-}
-
-/* Forms */
-.form-label {
-  font-family: var(--font-primary);
-  font-weight: 500;
-  font-size: 0.9rem;
-  margin-bottom: 0.5rem;
-}
-
-.form-control {
-  font-family: var(--font-primary);
-  font-weight: 400;
-}
-
-/* Tables */
-.table {
-  font-family: var(--font-primary);
-  font-weight: 400;
-}
-
-.table th {
-  font-weight: 600;
-  font-size: 0.875rem;
-}
-
-/* Special text classes */
-.main-text {
-  font-family: var(--font-primary);
-  font-weight: 400;
-  color: var(--primary-text-color);
-}
-
-.head-text {
-  font-family: var(--font-heading);
-  font-weight: 500;
-}
-
-.small-text {
-  font-family: var(--font-primary);
-  font-weight: 300;
-  font-size: 0.875rem;
-  color: var(--secondary-text-color);
-}
-
-/* Badges and labels */
-.badge {
-  font-family: var(--font-primary);
-  font-weight: 500;
-  font-size: 0.75rem;
-}
-
-/* ==============================
-   RESPONSIVE TYPOGRAPHY
-============================== */
+/* Responsive adjustments for landing page */
 @media (max-width: 768px) {
-  h1 {
+  .landing-background .glass-card {
+    padding: 2rem 1.5rem !important;
+    margin: 0 1rem;
+  }
+  
+  .landing-background h1.display-4 {
+    font-size: 2.5rem;
+  }
+  
+  .landing-background .lead {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .landing-background h1.display-4 {
     font-size: 2rem;
   }
   
-  h2 {
-    font-size: 1.75rem;
+  .landing-background .glass-card {
+    padding: 1.5rem 1rem !important;
   }
   
-  h3 {
-    font-size: 1.25rem;
-  }
-  
-  .card-title {
-    font-size: 1.1rem;
+  .landing-background {
+    background-attachment: scroll;
   }
 }
 
-/* ==============================
-   FONT WEIGHT UTILITIES
-============================== */
-.font-light {
-  font-weight: 300;
+/* Animation for landing page elements */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.font-regular {
-  font-weight: 400;
+.landing-background .glass-card {
+  animation: fadeInUp 0.8s ease-out;
 }
 
-.font-medium {
-  font-weight: 500;
+.landing-background h1 {
+  animation: fadeInUp 0.8s ease-out 0.2s both;
 }
 
-.font-semibold {
-  font-weight: 600;
+.landing-background p {
+  animation: fadeInUp 0.8s ease-out 0.4s both;
 }
 
-/* Font family utilities */
-.font-primary { font-family: var(--font-primary); }
-.font-heading { font-family: var(--font-heading); }
+.landing-background .btn {
+  animation: fadeInUp 0.8s ease-out 0.6s both;
+}
 
-/* Letter spacing utilities */
-.tracking-tight { letter-spacing: -0.025em; }
-.tracking-normal { letter-spacing: 0; }
-.tracking-wide { letter-spacing: 0.025em; }
+/* Enhanced Form Styles */
+.form-control {
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
 
-/* Line height utilities */
-.leading-tight { line-height: 1.25; }
-.leading-normal { line-height: 1.6; }
-.leading-relaxed { line-height: 1.75; }
+.form-control:focus {
+  border-color: var(--berry) !important;
+  box-shadow: 0 0 0 0.2rem rgba(185, 94, 130, 0.15) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Alert enhancements */
+.alert {
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.alert-danger {
+  background: rgba(231, 76, 60, 0.1) !important;
+  color: #e74c3c;
+}
+
+.alert-success {
+  background: rgba(39, 174, 96, 0.1) !important;
+  color: #27ae60;
+}
+
+/* Link hover effects */
+.text-decoration-none:hover {
+  text-decoration: underline !important;
+}
+
+/* Responsive adjustments for auth pages */
+@media (max-width: 768px) {
+  .glass-card {
+    padding: 2rem 1.5rem !important;
+    margin: 0 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .glass-card {
+    padding: 1.5rem 1rem !important;
+  }
+}
+
+/* Ensure the signin background works properly */
+.signin-background {
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Adjust glass card for better visibility */
+.glass-card {
+  max-height: 95vh;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar for glass card */
+.glass-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.glass-card::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.glass-card::-webkit-scrollbar-thumb {
+  background: var(--berry);
+  border-radius: 10px;
+}
+
+.glass-card::-webkit-scrollbar-thumb:hover {
+  background: #A54A75;
+}
+
+/* Hover effects for interactive cards */
+.hover-effect {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.hover-effect:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(185, 94, 130, 0.15) !important;
+}
+
+/* Button hover enhancements */
+.btn-outline-primary:hover {
+  background-color: var(--berry);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
+/* Glass input styles */
+.glass-input {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  transition: all 0.3s ease;
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: var(--berry) !important;
+  box-shadow: 0 0 0 0.2rem rgba(185, 94, 130, 0.15) !important;
+}
+
+/* Glass modal styles */
+.glass-modal .modal-content {
+  background: transparent;
+  border: none;
+}

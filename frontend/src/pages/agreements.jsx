@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Plus, FileText, Download, Eye, User, Calendar } from "lucide-react";
 import DashboardLayout from "../components/layout/DashboardLayout.jsx";
+import backgroundImage from "../assets/img/background.jpg";
+import { Container, Row, Col, Button, Modal } from "react-bootstrap"; // Added missing Bootstrap imports
 
 // Dummy data for agreements and loans
 const dummyLoans = [
@@ -154,7 +156,6 @@ function AgreementsContent() {
   };
 
   const handleDownloadAgreement = (loan) => {
-    // In a real application, this would generate and download a PDF
     const element = document.createElement('a');
     const file = new Blob([loan.agreementContent], { type: 'text/plain' });
     element.href = URL.createObjectURL(file);
@@ -165,72 +166,84 @@ function AgreementsContent() {
   };
 
   return (
-    <div className="container-fluid py-3 px-3 px-md-4">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <div>
-          <h2 className="head-text font-medium mb-1">Loan Agreements</h2>
-          <p className="small-text d-none d-md-block">Manage and view all loan agreements</p>
-        </div>
-        
-        {/* Create Button - Desktop with text, Mobile circular with icon */}
-        <div className="d-flex gap-2">
-          <button 
-            className="btn btn-primary d-none d-md-flex align-items-center gap-2 font-medium"
-            onClick={() => setShowCreateModal(true)}
-          >
-            <Plus size={20} />
-            Create Agreement
-          </button>
-          
-          <button 
-            className="btn btn-primary d-md-none rounded-circle p-2 font-medium"
-            style={{ width: '50px', height: '50px' }}
-            onClick={() => setShowCreateModal(true)}
-            title="Create Agreement"
-          >
-            <Plus size={20} />
-          </button>
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="col-12">
-          <div className="card shadow-sm">
-            <div className="card-header bg-light">
-              <h5 className="card-title head-text font-medium mb-0">Active Loan Agreements</h5>
+    <div 
+      className="w-100 p-3 p-md-4 dashboard-background"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+        minHeight: '100vh'
+      }}
+    >
+      <Container fluid>
+        {/* Header */}
+        <div className="glass-card p-4 rounded-4 shadow-lg mb-4">
+          <div className="d-flex justify-content-between align-items-center">
+            <div>
+              <h2 className="fw-bold head-text text-primary mb-1">Loan Agreements</h2>
+              <p className="main-text text-muted mb-0">Manage and view all loan agreements</p>
             </div>
-            <div className="card-body">
-              {dummyLoans.length === 0 ? (
-                <div className="text-center py-5">
-                  <FileText size={48} className="text-muted mb-3" />
-                  <h4 className="head-text font-medium text-muted">No agreements</h4>
-                  <p className="small-text mb-3">No loan agreements have been created yet</p>
-                  <button 
-                    className="btn btn-primary d-flex align-items-center gap-2 mx-auto font-medium"
-                    onClick={() => setShowCreateModal(true)}
-                  >
-                    <Plus size={16} />
-                    Create Agreement
-                  </button>
-                </div>
-              ) : (
-                <div className="list-group list-group-flush">
-                  {dummyLoans.map((loan) => (
-                    <div key={loan._id} className="list-group-item">
+            
+            <div className="d-flex gap-2">
+              <button 
+                className="btn btn-berry d-none d-md-flex align-items-center gap-2 font-medium border-0"
+                onClick={() => setShowCreateModal(true)}
+              >
+                <Plus size={20} />
+                Create Agreement
+              </button>
+              
+              <button 
+                className="btn btn-berry d-md-none rounded-circle p-2 font-medium border-0"
+                style={{ width: '50px', height: '50px' }}
+                onClick={() => setShowCreateModal(true)}
+                title="Create Agreement"
+              >
+                <Plus size={20} />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Agreements List */}
+        <div className="glass-card rounded-4 shadow-lg border-0">
+          <div className="glass-header p-4 rounded-4 rounded-bottom-0">
+            <h5 className="fw-bold head-text text-primary mb-0">📋 Active Loan Agreements</h5>
+          </div>
+          <div className="card-body p-4">
+            {dummyLoans.length === 0 ? (
+              <div className="text-center py-5">
+                <FileText size={48} className="text-muted mb-3" />
+                <h4 className="head-text font-medium text-muted">No agreements</h4>
+                <p className="small-text mb-3">No loan agreements have been created yet</p>
+                <button 
+                  className="btn btn-berry d-flex align-items-center gap-2 mx-auto font-medium border-0"
+                  onClick={() => setShowCreateModal(true)}
+                >
+                  <Plus size={16} />
+                  Create Agreement
+                </button>
+              </div>
+            ) : (
+              <Row className="g-3">
+                {dummyLoans.map((loan) => (
+                  <Col key={loan._id} xs={12}>
+                    <div className="glass-card p-4 rounded-4 border-0">
                       <div className="d-flex justify-content-between align-items-center">
                         <div className="d-flex align-items-center gap-3">
-                          {/* User Image - Even circle with consistent sizing */}
                           <div className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
                                style={{ 
-                                 width: '40px', 
-                                 height: '40px',
-                                 minWidth: '40px' // Ensure it doesn't shrink
+                                 width: '50px', 
+                                 height: '50px',
+                                 minWidth: '50px'
                                }}>
-                            <User size={20} />
+                            <User size={24} />
                           </div>
                           
                           <div className="flex-grow-1">
-                            <h6 className="font-medium mb-1">{loan.applicantName}</h6>
+                            <h6 className="font-medium mb-1 head-text">{loan.applicantName}</h6>
                             <p className="small-text mb-1 d-none d-md-block">
                               <strong>Loan:</strong> {loan.loanNumber} • 
                               <strong> Amount:</strong> {formatCurrency(loan.principalAmount)}
@@ -243,7 +256,6 @@ function AgreementsContent() {
                         </div>
                         
                         <div className="d-flex gap-2">
-                          {/* Desktop buttons with text */}
                           <button
                             className="btn btn-outline-primary btn-sm d-none d-md-flex align-items-center gap-1 font-medium"
                             onClick={() => handleViewAgreement(loan)}
@@ -252,14 +264,13 @@ function AgreementsContent() {
                             View
                           </button>
                           <button
-                            className="btn btn-outline-secondary btn-sm d-none d-md-flex align-items-center gap-1 font-medium"
+                            className="btn btn-berry btn-sm d-none d-md-flex align-items-center gap-1 font-medium border-0"
                             onClick={() => handleDownloadAgreement(loan)}
                           >
                             <Download size={16} />
                             Download
                           </button>
                           
-                          {/* Mobile buttons - circular with icons only */}
                           <button
                             className="btn btn-outline-primary btn-sm d-md-none rounded-circle p-2"
                             style={{ width: '40px', height: '40px' }}
@@ -269,7 +280,7 @@ function AgreementsContent() {
                             <Eye size={16} />
                           </button>
                           <button
-                            className="btn btn-outline-secondary btn-sm d-md-none rounded-circle p-2"
+                            className="btn btn-berry btn-sm d-md-none rounded-circle p-2 border-0"
                             style={{ width: '40px', height: '40px' }}
                             onClick={() => handleDownloadAgreement(loan)}
                             title="Download Agreement"
@@ -279,20 +290,20 @@ function AgreementsContent() {
                         </div>
                       </div>
                     </div>
-                  ))}
-                </div>
-              )}
-            </div>
+                  </Col>
+                ))}
+              </Row>
+            )}
           </div>
         </div>
-      </div>
+      </Container>
 
       {/* Agreement Details Modal */}
       {selectedLoan && (
         <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
           <div className="modal-dialog modal-xl">
-            <div className="modal-content">
-              <div className="modal-header">
+            <div className="modal-content glass-card rounded-4 border-0">
+              <div className="modal-header border-0">
                 <h5 className="modal-title head-text font-medium">
                   Agreement: {selectedLoan.loanNumber}
                 </h5>
@@ -305,13 +316,13 @@ function AgreementsContent() {
               <div className="modal-body">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <div>
-                    <h6 className="font-medium">{selectedLoan.applicantName}</h6>
+                    <h6 className="font-medium head-text">{selectedLoan.applicantName}</h6>
                     <p className="small-text mb-0">
                       {selectedLoan.agreementTitle} • {formatCurrency(selectedLoan.principalAmount)}
                     </p>
                   </div>
                   <button
-                    className="btn btn-outline-primary d-flex align-items-center gap-1 font-medium"
+                    className="btn btn-berry d-flex align-items-center gap-1 font-medium border-0"
                     onClick={() => handleDownloadAgreement(selectedLoan)}
                   >
                     <Download size={16} />
@@ -326,7 +337,7 @@ function AgreementsContent() {
                   </pre>
                 </div>
               </div>
-              <div className="modal-footer">
+              <div className="modal-footer border-0">
                 <button 
                   type="button" 
                   className="btn btn-secondary font-medium" 
@@ -342,54 +353,41 @@ function AgreementsContent() {
 
       {/* Create Agreement Modal */}
       {showCreateModal && (
-        <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <div className="modal-dialog modal-lg">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title head-text font-medium">Create New Agreement</h5>
-                <button 
-                  type="button" 
-                  className="btn-close" 
-                  onClick={() => setShowCreateModal(false)}
-                ></button>
-              </div>
-              <div className="modal-body">
-                <p className="small-text mb-3">Select an agreement template to get started</p>
-                
-                <div className="row g-3">
-                  {agreementTemplates.map((template) => (
-                    <div key={template.id} className="col-md-6">
-                      <div className="card h-100 border">
-                        <div className="card-body">
-                          <div className="d-flex align-items-start gap-2 mb-2">
-                            <FileText size={20} className="text-primary mt-1" />
-                            <div>
-                              <h6 className="font-medium mb-1">{template.title}</h6>
-                              <small className="small-text">Version {template.version}</small>
-                            </div>
-                          </div>
-                          <p className="small-text mb-3">{template.description}</p>
-                          <button className="btn btn-primary btn-sm font-medium w-100">
-                            Use Template
-                          </button>
+        <Modal show={showCreateModal} onHide={() => setShowCreateModal(false)} size="lg" centered>
+          <Modal.Header closeButton>
+            <Modal.Title className="head-text font-medium">Create New Agreement</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p className="small-text mb-3">Select an agreement template to get started</p>
+            
+            <Row className="g-3">
+              {agreementTemplates.map((template) => (
+                <Col key={template.id} md={6}>
+                  <Card className="h-100 border glass-card">
+                    <Card.Body>
+                      <div className="d-flex align-items-start gap-2 mb-2">
+                        <FileText size={20} className="text-primary mt-1" />
+                        <div>
+                          <h6 className="font-medium head-text mb-1">{template.title}</h6>
+                          <small className="small-text">Version {template.version}</small>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div className="modal-footer">
-                <button 
-                  type="button" 
-                  className="btn btn-secondary font-medium" 
-                  onClick={() => setShowCreateModal(false)}
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+                      <p className="small-text mb-3">{template.description}</p>
+                      <Button className="btn-berry font-medium w-100 border-0">
+                        Use Template
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" className="font-medium" onClick={() => setShowCreateModal(false)}>
+              Cancel
+            </Button>
+          </Modal.Footer>
+        </Modal>
       )}
     </div>
   );

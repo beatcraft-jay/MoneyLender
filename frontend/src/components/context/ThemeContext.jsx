@@ -1,3 +1,4 @@
+// src/components/context/ThemeContext.jsx
 import { createContext, useContext, useState, useEffect } from "react";
 
 const ThemeContext = createContext();
@@ -7,9 +8,10 @@ export function ThemeProvider({ children }) {
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+    // Also apply Bootstrap classes if needed
     document.body.classList.toggle("bg-dark", theme === "dark");
     document.body.classList.toggle("text-light", theme === "dark");
-    localStorage.setItem("theme", theme);
   }, [theme]);
 
   return (
@@ -20,5 +22,9 @@ export function ThemeProvider({ children }) {
 }
 
 export function useTheme() {
-  return useContext(ThemeContext);
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error("useTheme must be used within a ThemeProvider");
+  }
+  return context;
 }

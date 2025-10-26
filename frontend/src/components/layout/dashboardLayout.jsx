@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button, Dropdown } from "react-bootstrap";
-import { useTheme } from "../context/ThemeContext.jsx"; // Import ThemeContext
+import { useTheme } from "../context/ThemeContext.jsx"; 
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -50,7 +50,7 @@ export default function DashboardLayout({ children }) {
   const [notifications, setNotifications] = useState(mockNotifications);
   const [showNotifications, setShowNotifications] = useState(false);
   
-  // Use ThemeContext instead of local state
+
   const { theme, setTheme } = useTheme();
 
   useEffect(() => {
@@ -61,9 +61,6 @@ export default function DashboardLayout({ children }) {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  // Remove the local darkMode useEffect since ThemeContext handles this
-  // ThemeContext already applies the theme to documentElement
 
   const handleLogout = () => (window.location.href = "/signin");
   const handleLogoClick = () => navigate("/dashboard");

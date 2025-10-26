@@ -9,7 +9,9 @@ import {
   Trash2, 
   TrendingUp
 } from "lucide-react";
+import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import DashboardLayout from "../components/layout/DashboardLayout.jsx";
+import backgroundImage from "../assets/img/background.jpg";
 
 // Dummy data
 const dummyApplicants = [
@@ -101,7 +103,6 @@ function LoanForm({ onSuccess, onCancel }) {
 
   const handleChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: "" }));
     }
@@ -118,9 +119,7 @@ function LoanForm({ onSuccess, onCancel }) {
 
     setIsSubmitting(true);
     
-    // Simulate API call
     setTimeout(() => {
-      // Calculate loan details
       const principal = parseFloat(formData.principalAmount);
       const interestRate = parseFloat(formData.interestRate);
       const termMonths = parseInt(formData.termMonths);
@@ -147,10 +146,8 @@ function LoanForm({ onSuccess, onCancel }) {
         collateralType: selectedCollateral?.type
       };
 
-      // In a real app, this would be an API call
       console.log("Creating loan:", newLoan);
       
-      // Show success message
       if (typeof window !== 'undefined') {
         alert("Loan created successfully!");
       }
@@ -167,11 +164,11 @@ function LoanForm({ onSuccess, onCancel }) {
     : [];
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="form-group">
-        <label className="form-label font-medium">Applicant</label>
+    <form onSubmit={handleSubmit}>
+      <div className="form-group mb-3 mb-md-4">
+        <label className="form-label font-medium head-text small">Applicant</label>
         <select
-          className={`form-select font-regular ${errors.applicantId ? 'is-invalid' : ''}`}
+          className={`form-select font-regular glass-input ${errors.applicantId ? 'is-invalid' : ''}`}
           value={formData.applicantId}
           onChange={(e) => {
             handleChange('applicantId', e.target.value);
@@ -190,55 +187,55 @@ function LoanForm({ onSuccess, onCancel }) {
         {errors.applicantId && <div className="invalid-feedback d-block small-text">{errors.applicantId}</div>}
       </div>
 
-      <div className="row g-3">
-        <div className="col-md-6">
+      <Row className="g-2 g-md-3 mb-3 mb-md-4">
+        <Col xs={12} sm={6}>
           <div className="form-group">
-            <label className="form-label font-medium">Principal Amount (UGX)</label>
+            <label className="form-label font-medium head-text small">Principal Amount (UGX)</label>
             <input
               type="number"
-              className={`form-control font-regular ${errors.principalAmount ? 'is-invalid' : ''}`}
+              className={`form-control font-regular glass-input ${errors.principalAmount ? 'is-invalid' : ''}`}
               placeholder="10000000"
               value={formData.principalAmount}
               onChange={(e) => handleChange('principalAmount', e.target.value)}
             />
             {errors.principalAmount && <div className="invalid-feedback d-block small-text">{errors.principalAmount}</div>}
           </div>
-        </div>
+        </Col>
 
-        <div className="col-md-6">
+        <Col xs={12} sm={6}>
           <div className="form-group">
-            <label className="form-label font-medium">Interest Rate (%)</label>
+            <label className="form-label font-medium head-text small">Interest Rate (%)</label>
             <input
               type="number"
               step="0.1"
-              className={`form-control font-regular ${errors.interestRate ? 'is-invalid' : ''}`}
+              className={`form-control font-regular glass-input ${errors.interestRate ? 'is-invalid' : ''}`}
               placeholder="10"
               value={formData.interestRate}
               onChange={(e) => handleChange('interestRate', e.target.value)}
             />
             {errors.interestRate && <div className="invalid-feedback d-block small-text">{errors.interestRate}</div>}
           </div>
-        </div>
+        </Col>
 
-        <div className="col-md-6">
+        <Col xs={12} sm={6}>
           <div className="form-group">
-            <label className="form-label font-medium">Term (Months)</label>
+            <label className="form-label font-medium head-text small">Term (Months)</label>
             <input
               type="number"
-              className={`form-control font-regular ${errors.termMonths ? 'is-invalid' : ''}`}
+              className={`form-control font-regular glass-input ${errors.termMonths ? 'is-invalid' : ''}`}
               placeholder="12"
               value={formData.termMonths}
               onChange={(e) => handleChange('termMonths', e.target.value)}
             />
             {errors.termMonths && <div className="invalid-feedback d-block small-text">{errors.termMonths}</div>}
           </div>
-        </div>
+        </Col>
 
-        <div className="col-md-6">
+        <Col xs={12} sm={6}>
           <div className="form-group">
-            <label className="form-label font-medium">Loan Agreement</label>
+            <label className="form-label font-medium head-text small">Loan Agreement</label>
             <select
-              className={`form-select font-regular ${errors.agreementId ? 'is-invalid' : ''}`}
+              className={`form-select font-regular glass-input ${errors.agreementId ? 'is-invalid' : ''}`}
               value={formData.agreementId}
               onChange={(e) => handleChange('agreementId', e.target.value)}
             >
@@ -251,13 +248,13 @@ function LoanForm({ onSuccess, onCancel }) {
             </select>
             {errors.agreementId && <div className="invalid-feedback d-block small-text">{errors.agreementId}</div>}
           </div>
-        </div>
-      </div>
+        </Col>
+      </Row>
 
-      <div className="form-group">
-        <label className="form-label font-medium">Collateral (Optional)</label>
+      <div className="form-group mb-3 mb-md-4">
+        <label className="form-label font-medium head-text small">Collateral (Optional)</label>
         <select
-          className="form-select font-regular"
+          className="form-select font-regular glass-input"
           value={formData.collateralId}
           onChange={(e) => handleChange('collateralId', e.target.value)}
         >
@@ -270,11 +267,11 @@ function LoanForm({ onSuccess, onCancel }) {
         </select>
       </div>
 
-      <div className="d-flex gap-2 justify-content-end">
-        <button type="button" className="btn btn-secondary font-medium" onClick={onCancel}>
+      <div className="d-flex gap-2 justify-content-end pt-2 pt-md-3">
+        <button type="button" className="btn btn-secondary font-medium btn-sm" onClick={onCancel}>
           Cancel
         </button>
-        <button type="submit" className="btn btn-primary font-medium" disabled={isSubmitting}>
+        <button type="submit" className="btn btn-berry font-medium border-0 btn-sm" disabled={isSubmitting}>
           {isSubmitting ? "Creating..." : "Create Loan"}
         </button>
       </div>
@@ -309,9 +306,10 @@ function LoansContent() {
     const Icon = config.icon;
 
     return (
-      <span className={`badge ${config.class} d-flex align-items-center gap-1 font-medium`}>
-        <Icon size={14} />
-        {status.charAt(0).toUpperCase() + status.slice(1)}
+      <span className={`badge ${config.class} d-flex align-items-center gap-1 font-medium`} style={{ fontSize: '0.7rem' }}>
+        <Icon size={12} />
+        <span className="d-none d-sm-inline">{status.charAt(0).toUpperCase() + status.slice(1)}</span>
+        <span className="d-sm-none">{status.charAt(0).toUpperCase()}</span>
       </span>
     );
   };
@@ -344,187 +342,223 @@ function LoansContent() {
   };
 
   return (
-    <div className="container-fluid py-3 px-3 px-md-4">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <div>
-          <h2 className="head-text font-medium mb-1">Loans Management</h2>
-          <p className="small-text">Manage loan applications and disbursements</p>
-        </div>
-        <button 
-          className="btn btn-primary d-flex align-items-center gap-2 font-medium"
-          onClick={() => setShowModal(true)}
-        >
-          <Plus size={20} />
-          Create Loan
-        </button>
-      </div>
-
-      {loans.length === 0 ? (
-        <div className="text-center py-5">
-          <DollarSign size={48} className="text-muted mb-3" />
-          <h4 className="head-text font-medium text-muted">No loans yet</h4>
-          <p className="small-text mb-3">Create your first loan application</p>
-          <button 
-            className="btn btn-primary d-flex align-items-center gap-2 mx-auto font-medium"
-            onClick={() => setShowModal(true)}
-          >
-            <Plus size={16} />
-            Create Loan
-          </button>
-        </div>
-      ) : (
-        <div className="row g-4">
-          {loans.map((loan) => (
-            <div key={loan._id} className="col-12">
-              <div className="card shadow-sm h-100">
-                <div className="card-header bg-transparent">
-                  <div className="d-flex justify-content-between align-items-start">
-                    <div>
-                      <h5 className="card-title head-text font-medium mb-1">{loan.loanNumber}</h5>
-                      <p className="small-text mb-0">{loan.applicantName}</p>
-                    </div>
-                    {getStatusBadge(loan.status)}
-                  </div>
-                </div>
-                <div className="card-body">
-                  <div className="row g-3">
-                    <div className="col-sm-6 col-md-3">
-                      <small className="small-text d-block">Principal</small>
-                      <strong className="font-medium">{formatCurrency(loan.principalAmount)}</strong>
-                    </div>
-                    <div className="col-sm-6 col-md-3">
-                      <small className="small-text d-block">Interest Rate</small>
-                      <strong className="font-medium">{loan.interestRate}%</strong>
-                    </div>
-                    <div className="col-sm-6 col-md-3">
-                      <small className="small-text d-block">Term</small>
-                      <strong className="font-medium">{loan.termMonths} months</strong>
-                    </div>
-                    <div className="col-sm-6 col-md-3">
-                      <small className="small-text d-block">Monthly Payment</small>
-                      <strong className="font-medium">{formatCurrency(loan.monthlyPayment)}</strong>
-                    </div>
-                    <div className="col-sm-6 col-md-3">
-                      <small className="small-text d-block">Total Amount</small>
-                      <strong className="font-medium">{formatCurrency(loan.totalAmount)}</strong>
-                    </div>
-                    <div className="col-sm-6 col-md-3">
-                      <small className="small-text d-block">Balance</small>
-                      <strong className="font-medium text-primary">{formatCurrency(loan.balance)}</strong>
-                    </div>
-                    <div className="col-sm-6 col-md-3">
-                      <small className="small-text d-block">Agreement</small>
-                      <strong className="font-medium">{loan.agreementTitle}</strong>
-                    </div>
-                    {loan.collateralType && (
-                      <div className="col-sm-6 col-md-3">
-                        <small className="small-text d-block">Collateral</small>
-                        <strong className="font-medium">{loan.collateralType}</strong>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="d-flex gap-2 mt-3">
-                    {loan.status === "pending" && (
-                      <button 
-                        className="btn btn-success btn-sm d-flex align-items-center gap-1 font-medium"
-                        onClick={() => handleApprove(loan._id)}
-                      >
-                        <CheckCircle size={16} />
-                        Approve
-                      </button>
-                    )}
-                    {loan.status === "approved" && (
-                      <button 
-                        className="btn btn-primary btn-sm d-flex align-items-center gap-1 font-medium"
-                        onClick={() => handleDisburse(loan._id)}
-                      >
-                        <DollarSign size={16} />
-                        Disburse
-                      </button>
-                    )}
-                    {(loan.status === "pending" || loan.status === "approved") && (
-                      <button
-                        className="btn btn-outline-danger btn-sm font-medium"
-                        onClick={() => {
-                          setLoanToDelete(loan._id);
-                          setShowDeleteModal(true);
-                        }}
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
+    <div 
+      className="w-100 p-2 p-md-4 dashboard-background"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'fixed',
+        minHeight: '100vh'
+      }}
+    >
+      <Container fluid className="px-2 px-md-3">
+        {/* Header */}
+        <div className="glass-card p-3 p-md-4 rounded-4 shadow-lg mb-3 mb-md-4">
+          <div className="d-flex justify-content-between align-items-center">
+            <div className="flex-grow-1 me-3">
+              <h2 className="fw-bold head-text text-primary mb-1 fs-4 fs-md-3">💰 Loans Management</h2>
+              <p className="main-text text-muted mb-0 d-none d-md-block">Manage loan applications and disbursements</p>
+              <p className="main-text text-muted mb-0 d-md-none small">Manage loans and disbursements</p>
             </div>
-          ))}
+            {/* Responsive Add Button */}
+            <Button 
+              variant="berry" 
+              className="d-flex align-items-center font-medium border-0"
+              onClick={() => setShowModal(true)}
+              size="lg"
+            >
+              {/* Show only plus icon on mobile, full text on desktop */}
+              <Plus className="d-none d-md-block" size={20} />
+              <Plus className="d-md-none" size={16} />
+              <span className="d-none d-md-inline ms-2">Create Loan</span>
+            </Button>
+          </div>
         </div>
-      )}
+
+        {/* Loans Grid */}
+        {loans.length === 0 ? (
+          <div className="glass-card rounded-4 shadow-lg border-0 text-center py-4 py-md-5">
+            <DollarSign size={40} className="text-muted mb-3" />
+            <h4 className="head-text font-medium text-muted fs-5">No loans yet</h4>
+            <p className="small-text mb-3">Create your first loan application</p>
+            <Button 
+              variant="berry" 
+              className="d-flex align-items-center gap-2 mx-auto font-medium border-0"
+              onClick={() => setShowModal(true)}
+              size="sm"
+            >
+              <Plus size={14} />
+              <span>Create Loan</span>
+            </Button>
+          </div>
+        ) : (
+          <Row className="g-3 g-md-4">
+            {loans.map((loan) => (
+              <Col key={loan._id} xs={12} lg={6} xl={4}>
+                <div className="glass-card rounded-4 shadow-sm h-100 border-0 d-flex flex-column">
+                  {/* Card Header */}
+                  <div className="card-header bg-transparent border-0 pb-2 p-3">
+                    <div className="d-flex justify-content-between align-items-start">
+                      <div className="flex-grow-1 me-2">
+                        <h5 className="card-title head-text font-medium mb-1 fs-6">{loan.loanNumber}</h5>
+                        <p className="small-text mb-0 text-muted">{loan.applicantName}</p>
+                      </div>
+                      {getStatusBadge(loan.status)}
+                    </div>
+                  </div>
+                  
+                  {/* Card Body */}
+                  <div className="card-body flex-grow-1 p-0">
+                    <div className="p-2 p-md-3">
+                      <Row className="g-2">
+                        <Col xs={6} sm={4}>
+                          <div className="text-center p-1 p-md-2">
+                            <small className="small-text d-block text-muted mb-1" style={{ fontSize: '0.7rem' }}>Principal</small>
+                            <strong className="font-medium head-text d-block" style={{ fontSize: '0.8rem' }}>
+                              {formatCurrency(loan.principalAmount).replace('UGX', '')}
+                            </strong>
+                          </div>
+                        </Col>
+                        <Col xs={6} sm={4}>
+                          <div className="text-center p-1 p-md-2">
+                            <small className="small-text d-block text-muted mb-1" style={{ fontSize: '0.7rem' }}>Interest</small>
+                            <strong className="font-medium head-text d-block" style={{ fontSize: '0.8rem' }}>{loan.interestRate}%</strong>
+                          </div>
+                        </Col>
+                        <Col xs={6} sm={4}>
+                          <div className="text-center p-1 p-md-2">
+                            <small className="small-text d-block text-muted mb-1" style={{ fontSize: '0.7rem' }}>Term</small>
+                            <strong className="font-medium head-text d-block" style={{ fontSize: '0.8rem' }}>{loan.termMonths}m</strong>
+                          </div>
+                        </Col>
+                        <Col xs={6} sm={4}>
+                          <div className="text-center p-1 p-md-2">
+                            <small className="small-text d-block text-muted mb-1" style={{ fontSize: '0.7rem' }}>Monthly</small>
+                            <strong className="font-medium head-text d-block" style={{ fontSize: '0.8rem' }}>
+                              {formatCurrency(loan.monthlyPayment).replace('UGX', '')}
+                            </strong>
+                          </div>
+                        </Col>
+                        <Col xs={6} sm={4}>
+                          <div className="text-center p-1 p-md-2">
+                            <small className="small-text d-block text-muted mb-1" style={{ fontSize: '0.7rem' }}>Total</small>
+                            <strong className="font-medium head-text d-block" style={{ fontSize: '0.8rem' }}>
+                              {formatCurrency(loan.totalAmount).replace('UGX', '')}
+                            </strong>
+                          </div>
+                        </Col>
+                        <Col xs={6} sm={4}>
+                          <div className="text-center p-1 p-md-2">
+                            <small className="small-text d-block text-muted mb-1" style={{ fontSize: '0.7rem' }}>Balance</small>
+                            <strong className="font-medium head-text d-block text-primary" style={{ fontSize: '0.8rem' }}>
+                              {formatCurrency(loan.balance).replace('UGX', '')}
+                            </strong>
+                          </div>
+                        </Col>
+                        {loan.collateralType && (
+                          <Col xs={12}>
+                            <div className="text-center p-1 p-md-2 border-top pt-2">
+                              <small className="small-text d-block text-muted mb-1" style={{ fontSize: '0.7rem' }}>Collateral</small>
+                              <strong className="font-medium head-text d-block" style={{ fontSize: '0.8rem' }}>{loan.collateralType}</strong>
+                            </div>
+                          </Col>
+                        )}
+                      </Row>
+                    </div>
+                  </div>
+
+                  {/* Card Footer - Action Buttons */}
+                  <div className="card-footer bg-transparent border-0 pt-2 mt-auto p-3">
+                    <div className="d-flex gap-1 gap-md-2">
+                      {loan.status === "pending" && (
+                        <Button 
+                          variant="success" 
+                          size="sm" 
+                          className="d-flex align-items-center gap-1 font-medium flex-grow-1"
+                          onClick={() => handleApprove(loan._id)}
+                        >
+                          <CheckCircle size={14} />
+                          <span className="d-none d-sm-inline">Approve</span>
+                          <span className="d-sm-none">OK</span>
+                        </Button>
+                      )}
+                      {loan.status === "approved" && (
+                        <Button 
+                          variant="berry" 
+                          size="sm" 
+                          className="d-flex align-items-center gap-1 font-medium flex-grow-1 border-0"
+                          onClick={() => handleDisburse(loan._id)}
+                        >
+                          <DollarSign size={14} />
+                          <span className="d-none d-sm-inline">Disburse</span>
+                          <span className="d-sm-none">Pay</span>
+                        </Button>
+                      )}
+                      {(loan.status === "pending" || loan.status === "approved") && (
+                        <Button
+                          variant="outline-danger"
+                          size="sm"
+                          className="font-medium"
+                          onClick={() => {
+                            setLoanToDelete(loan._id);
+                            setShowDeleteModal(true);
+                          }}
+                        >
+                          <Trash2 size={14} />
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </Col>
+            ))}
+          </Row>
+        )}
+      </Container>
 
       {/* Create Loan Modal */}
       {showModal && (
-        <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <div className="modal-dialog modal-lg">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title head-text font-medium">Create New Loan</h5>
-                <button 
-                  type="button" 
-                  className="btn-close" 
-                  onClick={() => setShowModal(false)}
-                ></button>
-              </div>
-              <div className="modal-body">
-                <p className="small-text mb-3">Create a new loan application for an applicant</p>
-                <LoanForm 
-                  onSuccess={handleCreateSuccess}
-                  onCancel={() => setShowModal(false)}
-                />
-              </div>
-            </div>
+        <Modal show={showModal} onHide={() => setShowModal(false)} size="lg" centered className="glass-modal">
+          <div className="glass-card rounded-4 border-0">
+            <Modal.Header closeButton className="border-0">
+              <Modal.Title className="head-text font-medium fs-6 fs-md-5">Create New Loan</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="p-3 p-md-4">
+              <p className="small-text mb-3">Create a new loan application for an applicant</p>
+              <LoanForm 
+                onSuccess={handleCreateSuccess}
+                onCancel={() => setShowModal(false)}
+              />
+            </Modal.Body>
           </div>
-        </div>
+        </Modal>
       )}
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div className="modal show d-block" style={{ backgroundColor: 'rgba(0,0,0,0.5)' }}>
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title head-text font-medium d-flex align-items-center gap-2">
-                  <AlertTriangle className="text-danger" size={20} />
-                  Delete Loan
-                </h5>
-                <button 
-                  type="button" 
-                  className="btn-close" 
-                  onClick={() => setShowDeleteModal(false)}
-                ></button>
-              </div>
-              <div className="modal-body">
-                <p className="font-regular">Are you sure you want to delete this loan? This action cannot be undone. Note: You cannot delete loans with payment history.</p>
-              </div>
-              <div className="modal-footer">
-                <button 
-                  type="button" 
-                  className="btn btn-secondary font-medium" 
-                  onClick={() => setShowDeleteModal(false)}
-                >
-                  Cancel
-                </button>
-                <button 
-                  type="button" 
-                  className="btn btn-danger font-medium" 
-                  onClick={handleDelete}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
+        <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered className="glass-modal">
+          <div className="glass-card rounded-4 border-0">
+            <Modal.Header closeButton className="border-0">
+              <Modal.Title className="head-text font-medium d-flex align-items-center gap-2 fs-6">
+                <AlertTriangle className="text-danger" size={18} />
+                Delete Loan
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="p-3 p-md-4">
+              <p className="font-regular main-text small">Are you sure you want to delete this loan? This action cannot be undone. Note: You cannot delete loans with payment history.</p>
+            </Modal.Body>
+            <Modal.Footer className="border-0">
+              <Button variant="secondary" className="font-medium btn-sm" onClick={() => setShowDeleteModal(false)}>
+                Cancel
+              </Button>
+              <Button variant="danger" className="font-medium btn-sm" onClick={handleDelete}>
+                Delete
+              </Button>
+            </Modal.Footer>
           </div>
-        </div>
+        </Modal>
       )}
     </div>
   );
