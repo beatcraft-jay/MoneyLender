@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Card, Form, Container, Row, Col, Alert } from "react-bootstrap";
 import backgroundImage from "../assets/img/background.jpg";
 
@@ -7,11 +7,13 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email && password) {
-      window.location.href = "/dashboard";
+      // Use navigate instead of window.location.href for React Router
+      navigate("/dashboard");
     } else {
       setError("Please enter valid credentials.");
     }
